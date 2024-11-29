@@ -23,10 +23,17 @@ docker run --name <nazwa_kontenera> -it -p 8000:8000 <nazwa_obrazu>
 - `-it` - Tryb interaktywny z dostępem do terminala.
  
 Efekt uruchomienia serwera w tle:
+
 ![image](https://github.com/user-attachments/assets/6899f6a2-25dc-44f8-8df2-c43221549892)
 
 Efekt uruchomienia serwera w trybie interaktywnym:
+
 ![image](https://github.com/user-attachments/assets/17b1162d-14ec-4c51-94c0-f8c4743ff825)
+
+Wynik działania serwera:
+
+![image](https://github.com/user-attachments/assets/d5dab321-c74e-4a2c-bc3c-d54f8c6c94bc)
+
 
 W celu wyświetlenia logów serwera, należy użyc komendy:
 ```
