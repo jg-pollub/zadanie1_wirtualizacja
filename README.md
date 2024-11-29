@@ -32,3 +32,5 @@ W celu wyświetlenia logów serwera, należy użyc komendy:
 ```
 docker exec -it python_server python3 -c "print(open(\"server_logs.txt\", \"r\").read())"
 ```
+Wynik działania komendy:
+![image](https://github.com/user-attachments/assets/ae5f8cee-7266-430f-9844-96dfe58a1423)
