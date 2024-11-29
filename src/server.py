@@ -18,30 +18,35 @@ class MyServer(BaseHTTPRequestHandler):
             clients_ip = self.client_address[0] #pobranie adresu IP klienta
 
             clients_timezone = get(f"https://ipapi.co/{clients_ip}/timezone/").text #API do określania strefy czasowej na podstawie adresu IP
-            sleep(1) #Sekunda przerwy pomiędzy zapytaniami do API w celu
+            sleep(1) #Sekunda przerwy pomiędzy zapytaniami do API (żeby nie dostać blokady)
             if clients_timezone == "Undefined": #Gdy IP klienta jest lokalne...
-                clients_timezone = get(f"https://ipapi.co/timezone/").text #...Wyświetl strefe czasową na podstawie IP serwera.
+                clients_timezone = get(f"https://ipapi.co/timezone/").text #...Wyświetl strefe czasową na podstawie IP serwera.    
+            content = open("index.html", "r").read() #odczytanie pliku ze stroną
+            
+            #Ustawienie na stronie wartości IP klienta, strefy czasowej i daty.
+            content = content.replace("{client_ip}", clients_ip) 
 
-            content = open("index.html", "r").read()
-            content = content.replace("{client_ip}", clients_ip)
-            content = content.replace("{time_zone}", 'Europe/Warsaw')
-            content = content.replace("{date}", str(datetime.now(timezone(clients_timezone))))
-            self.wfile.write(bytes(content, "utf-8"))
-
+            if "RateLimited" not in clients_timezone: #Sprawdzenie osiągnięcia limitu API (30000 zapytań, ale czasem blokują "podejrzany" ruch)
+                content = content.replace("{time_zone}", clients_timezone)
+                content = content.replace("{date}", str(datetime.now(timezone(clients_timezone))))
+            else:
+                content = content.replace("{time_zone}", "Osiągnięto limit API, spróbuj później.")
+                content = content.replace("{date}", "Osiągnięto limit API, spróbuj później.")
+            self.wfile.write(bytes(content, "utf-8")) #wysłanie danych
 
 if __name__ == "__main__":        
-    webServer = HTTPServer((host_name, server_port), MyServer)
-    print(f"Serwer uruchomiony\n====================================\nAdres serwera: http://{host_name}:{server_port}\n")
+    webServer = HTTPServer((host_name, server_port), MyServer) #Utworzenie instancji serwera
+    print(f"Serwer uruchomiony\n\nAdres serwera: http://{host_name}:{server_port}\n") #Przy uruchomieniu serwera log do konsoli 
     
-    with open("server_logs.txt", "a") as out_file:
+    with open("server_logs.txt", "a") as out_file: #zapisanie logów do pliku
         print(f"Data uruchomienia serwera: {date.today()}", file=out_file)
         print(f"Autor: Jakub Goliszek", file=out_file)
         print(f"Port TCP: {server_port}\n\n", file=out_file)
 
     try:
-        webServer.serve_forever()
-    except KeyboardInterrupt:
+        webServer.serve_forever()   #pętla serwera
+    except KeyboardInterrupt: # obsługa przerwania programu za pomocą skrótu CTRL+C
         pass
 
-    webServer.server_close()
-    print("Serwer zatrzymany")
+    webServer.server_close() #zatrzymaj serwer
+    print("Serwer zatrzymany") #log na zakończenie serwera do konsoli
