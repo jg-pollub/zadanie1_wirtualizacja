@@ -15,11 +15,16 @@ docker run --name <nazwa_kontenera> -d -p 8000:8000 <nazwa_obrazu>
 - `-d` - tryb odłączony (detached), pozwalający kontenerowi na działanie w tle,
 - `-p` - mapowanie portów kontenera na porty hosta.
 
-Można również uruchomić serwer w trybie interaktywnym, pozwalającym na wyświetlanie w czasie rzeczywistym logów w konsoli serwera.
-Komenda:
+Można również uruchomić serwer w trybie interaktywnym, pozwalającym na wyświetlanie w czasie rzeczywistym logów w konsoli serwera komendą:
 
 ```bash
 docker run --name <nazwa_kontenera> -it -p 8000:8000 <nazwa_obrazu>
 ```
 - `-it` - Tryb interaktywny z dostępem do terminala.
  
+Efekt uruchomienia serwera w tle:
+![image](https://github.com/user-attachments/assets/6899f6a2-25dc-44f8-8df2-c43221549892)
+
+Efekt uruchomienia serwera w trybie interaktywnym:
+![image](https://github.com/user-attachments/assets/17b1162d-14ec-4c51-94c0-f8c4743ff825)
+
