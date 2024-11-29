@@ -35,9 +35,33 @@ Wynik działania serwera:
 ![image](https://github.com/user-attachments/assets/da34cdbe-c606-43ff-b366-d2cdb62a1995)
 
 W celu wyświetlenia logów serwera, należy użyc komendy:
-```
+```bash
 docker exec -it <nazwa_kontenera> python3 -c "print(open(\"server_logs.txt\", \"r\").read())"
 ```
 Wynik działania komendy:
 
 ![image](https://github.com/user-attachments/assets/d5dab321-c74e-4a2c-bc3c-d54f8c6c94bc)
+
+Aby zatrzymać działanie kontenera, należy użyć komendy:
+```bash
+docker stop <nazwa_kontenera>
+```
+
+# Część nieobowiązkowa
+
+Utworzenie buildera:
+```bash
+docker buildx create --driver docker_container --name <nazwa_buildera> --use --bootstrap 
+```
+
+![image](https://github.com/user-attachments/assets/b99bdea1-aa3c-4b35-a27d-173dd1ed65ac)
+
+Budowanie obrazu kompatybilnego z architekturami **linux/arm64** oraz **linux/amd64**:
+
+```bash
+docker buildx build -t <nazwa_obrazu> --platform linux/arm64,linux/amd64 .
+```
+
+
+
+
