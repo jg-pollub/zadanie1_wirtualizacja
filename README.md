@@ -28,3 +28,7 @@ Efekt uruchomienia serwera w tle:
 Efekt uruchomienia serwera w trybie interaktywnym:
 ![image](https://github.com/user-attachments/assets/17b1162d-14ec-4c51-94c0-f8c4743ff825)
 
+W celu wyświetlenia logów serwera, należy użyc komendy:
+```
+docker exec -it python_server python3 -c "print(open(\"server_logs.txt\", \"r\").read())"
+```
