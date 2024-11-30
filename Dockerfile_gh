@@ -1,0 +1,45 @@
+#Pierwszy etap - klonowanie z repo
+FROM scratch AS cloning_stage
+
+#Informacje o autorze
+LABEL org.opencontainers.image.authors="imie nazwisko"
+LABEL org.opencontainers.image.title="Serwer HTTP w języku python"
+
+ADD alpine-minirootfs-3.20.3-aarch64.tar.gz /
+
+RUN apk add openssh-client git \
+    && mkdir -p -m 0600 ~/.ssh \
+    && ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+RUN --mount=type=ssh git clone git@github.com:jg-pollub/zadanie1_wirtualizacja.git src \
+    && rm src/README.md
+    
+#Drugi etap, builder - utworzenie pliku binarnego
+FROM python:3.11-slim AS builder   
+
+#Pobranie odpowiednich pakietów oraz modułów, optymalizacja pod względem cache i warstw
+RUN apt-get update && apt-get install -y --no-install-recommends gcc \
+    && pip install pyinstaller \
+    && pip install --no-cache-dir requests pendulum \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+#skopiowanie plików źródłowych z systemu
+COPY --from=cloning_stage src ./
+
+# utworzenie pliku binarnego
+RUN pyinstaller --onefile src/server.py && mv src/index.html src/client.py dist
+
+#Drugi etap na bazie lekkiego obrazu distroless 
+FROM gcr.io/distroless/python3-debian12
+
+WORKDIR /app
+
+#Skopiowanie pliku binarnego, strony oraz clienta z pierwszego etapu
+COPY --from=builder dist .
+
+EXPOSE 8000
+
+HEALTHCHECK --interval=15s --timeout=5s CMD ["python3", "client.py"]
+
+ENTRYPOINT ["./server"]
