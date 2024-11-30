@@ -29,6 +29,7 @@ COPY --from=builder /dist .
 
 EXPOSE 8000
 
+#Wyślij request programem client.py realizując healthcheck
 HEALTHCHECK --interval=15s --timeout=5s CMD ["python3", "client.py"]
 
 ENTRYPOINT ["./server"]
