@@ -42,10 +42,20 @@ Wynik działania komendy:
 
 ![image](https://github.com/user-attachments/assets/da34cdbe-c606-43ff-b366-d2cdb62a1995)
 
+Sprawdzenie liczby warstw serwera odbywa się poprzez użycie komendy:
+
+```bash
+docker image inspect local/projekt:final | grep -o 'sha256:' | wc -l
+```
+
 Aby zatrzymać działanie kontenera, należy użyć komendy:
 ```bash
 docker stop <nazwa_kontenera>
+
 ```
+Wynik komendy:
+![image](https://github.com/user-attachments/assets/e0b9ce51-3c3f-4a29-8b6b-8c5173cf70f6)
+
 
 # Część nieobowiązkowa
 
