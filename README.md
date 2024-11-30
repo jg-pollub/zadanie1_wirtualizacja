@@ -62,6 +62,8 @@ Budowanie obrazu kompatybilnego z architekturami **linux/arm64** oraz **linux/am
 docker buildx build -t <nazwa_obrazu> --platform linux/arm64,linux/amd64 .
 ```
 
+![image](https://github.com/user-attachments/assets/bc592b4e-f685-4323-9632-4ee2cf5b5ea6)
+
 
 
 
