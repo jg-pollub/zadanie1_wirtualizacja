@@ -65,7 +65,7 @@ docker buildx create --driver docker_container --name <nazwa_buildera> --use --b
 
 ![image](https://github.com/user-attachments/assets/b99bdea1-aa3c-4b35-a27d-173dd1ed65ac)
 
-Budowanie obrazu kompatybilnego z architekturami **linux/arm64** oraz **linux/amd64**, wykorzystujący kody aplikacji na repozytorium oraz wykorzystujący rozszerzony backend:
+Budowanie obrazu kompatybilnego z architekturami **linux/arm64** oraz **linux/amd64**, wykorzystujący kody aplikacji na repozytorium oraz wykorzystujący rozszerzony frontend:
 ```bash
 docker buildx build -f Dockerfile_gh --platform linux/arm64,linux/amd64 \
 -t jakubgoliszek/projekt:final_git --cache-to=type=registry,ref=jakubgoliszek/projekt:cache,mode=max \
