@@ -59,11 +59,11 @@ jobs:
 
       - name: Scan Docker image with Docker Scout
         id: scout
-        uses: docker/scout-action@v0.1.1
+        uses: docker/scout-action@v1.15.1
         with:
           image: ${{ steps.build.outputs.image }}
 
-      - name: Evaluate vulnerabilities
+      - name: Check vulnerabilities
         run: |
           CRITICAL_COUNT=${{ steps.scout.outputs.critical_vulnerabilities_count }}
           HIGH_COUNT=${{ steps.scout.outputs.high_vulnerabilities_count }}
