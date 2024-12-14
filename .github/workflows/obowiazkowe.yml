@@ -63,7 +63,7 @@ jobs:
         id: scout
         uses: docker/scout-action@v1.15.1
         with:
-          image: ghcr.io/${{ github.repository_owner }}/projekt:latest
+          image: ${{ steps.build.outputs.image }}
           command: cves
           only-severities: critical,high
           exit-on: vulnerability
