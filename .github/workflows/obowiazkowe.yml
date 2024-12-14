@@ -65,15 +65,8 @@ jobs:
         with:
           image: ${{ steps.build.outputs.image }}
           command: cves
-
-      - name: Check vulnerabilities
-        run: |
-          CRITICAL_COUNT=${{ steps.scout.outputs.critical_vulnerabilities_count }}
-          HIGH_COUNT=${{ steps.scout.outputs.high_vulnerabilities_count }}
-          if [ "$CRITICAL_COUNT" -gt 0 ] || [ "$HIGH_COUNT" -gt 0 ]; then
-            echo "Docker image contains critical or high vulnerabilities. Failing build."
-            exit 1
-          fi
+          only-severities: critical,high
+          exit-on: vulnerability
 
       - name: Push Docker image to DockerHub
         uses: docker/build-push-action@v5
