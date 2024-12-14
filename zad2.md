@@ -1,7 +1,7 @@
 # CZĘŚĆ OBOWIĄZKOWA
 
 Na podstawie wzorca workflow z laboratorium 9 utworzono nowy plik .yml rozszerzony o pushowanie obrazu na publiczne repozytorium obrazów *ghcr.io*, w momencie, gdy nie posiada zagrożeń typu *HIGH* oraz *CRITICAL*.
-Do wzorca dodano kroki odpowiadające za logowanie się na platformy *GITHUB*, budowanie lokalnego obrazu, który zostaje przetestowany pod kątem zagrożen przez usługę docker scout, oraz przesyłanie go na publiczne repozytorium.
+Do wzorca dodano kroki odpowiadające za logowanie się na platformy *GITHUB*, budowanie lokalnego obrazu, który zostaje przetestowany pod kątem zagrożeń przez usługę *docker scout*, oraz przesyły na publiczne repozytorium.
 
 Zawartość kroku odpowiadającego za działanie usługi *docker scout* została utworzona na podstawie [oficjalnego repozytorium](https://github.com/docker/scout-action).
 
